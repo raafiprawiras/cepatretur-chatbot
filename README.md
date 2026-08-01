@@ -302,4 +302,4 @@ Daftar tangkapan layar pengujian antarmuka aplikasi dapat dilihat pada direktori
 - **Nama Pembuat:** Raafi Prawira Setiamudo
 - **NIM / ID Peserta:** -
 - **Kelas / Program:** Maju Bareng AI 2026
-- **Repositori GitHub:** (https://github.com/raafiprawiras/cepatretur)
+- **Repositori GitHub:** (https://github.com/raafiprawiras/cepatretur-chatbot)
