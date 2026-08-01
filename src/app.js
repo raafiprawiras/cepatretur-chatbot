@@ -29,8 +29,8 @@ app.use((err, req, res, next) => {
 // Serve static frontend files from public/ (for local dev & static fallbacks)
 app.use(express.static(publicPath));
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
+// Health check endpoint (matches both /api/health and /health)
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({
     status: 'ok',
     message: 'CepatRetur API is running',
@@ -39,16 +39,22 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Register API Routes
+// Register API Routes (matches both /api/* and /*)
 app.use('/api', chatRoute);
+app.use('/', chatRoute);
+
 app.use('/api', returnRoute);
+app.use('/', returnRoute);
 
 // Handle 404 for unmatched API routes
-app.use('/api', (req, res) => {
-  res.status(404).json({
-    error: true,
-    message: `Endpoint API '${req.originalUrl}' tidak ditemukan.`
-  });
+app.use(['/api', '/'], (req, res, next) => {
+  if (req.originalUrl.startsWith('/api')) {
+    return res.status(404).json({
+      error: true,
+      message: `Endpoint API '${req.originalUrl}' tidak ditemukan.`
+    });
+  }
+  next();
 });
 
 // Global error handling middleware (No stack traces sent to client)
