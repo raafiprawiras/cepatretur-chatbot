@@ -1,4 +1,5 @@
-<img width="1917" height="911" alt="image" src="https://github.com/user-attachments/assets/04ec7145-c44b-43c9-9e72-43f14bb6de61" />
+<img width="4163" height="2631" alt="Thumbnail Repo" src="https://github.com/user-attachments/assets/fd7ed1b9-8b8c-4e64-ab80-b2b23f0263a7" />
+
 
 # 📦 CepatRetur — Bot Asisten Penukaran & Pengembalian Barang
 
