@@ -8,8 +8,8 @@
     "node": "22.x"
   },
   "scripts": {
-    "start": "node index.js",
-    "dev": "node --watch index.js",
+    "start": "node dev-server.js",
+    "dev": "node --watch dev-server.js",
     "test": "node --test"
   },
   "keywords": [
