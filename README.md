@@ -6,9 +6,9 @@
 ---
 
 ## 🌐 Demo Aplikasi Online (Vercel Deployment)
-- **Production URL:** `https://NAMA-PROJECT.vercel.app` *(Silakan ganti dengan URL Vercel publik Anda)*
-- **GitHub Repository:** `https://github.com/USERNAME/NAMA-REPOSITORY`
-- **API Health Check URL:** `https://NAMA-PROJECT.vercel.app/api/health`
+- **Production URL:** `https://cepatretur.vercel.app`
+- **GitHub Repository:** `https://github.com/raafiprawiras/cepatretur-chatbot`
+- **API Health Check URL:** `https://cepatretur.vercel.app/api/health`
 
 ---
 
