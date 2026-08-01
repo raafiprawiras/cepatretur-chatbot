@@ -170,7 +170,7 @@ cepatretur/
 
 ### 1️⃣ Clone Repositori & Instalasi Dependensi
 ```bash
-git clone [https://github.com/USERNAME/cepatretur.git](https://github.com/raafiprawiras/cepatretur-chatbot)
+git clone [[https://github.com/USERNAME/cepatretur.git]]
 cd cepatretur
 npm install
 ```
