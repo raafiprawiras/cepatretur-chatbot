@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.status === 'ok') {
           if (apiHealthPill) {
             apiHealthPill.className = 'status-pill online';
-            if (apiHealthText) apiHealthText.textContent = 'AI Online';
+            if (apiHealthText) apiHealthText.textContent = 'API Terhubung';
           }
           return;
         }
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       sessionStorage.removeItem(WIZARD_KEY);
     } catch (e) {}
-    userInput.placeholder = 'Ketik pertanyaan atau kendala barang Anda...';
+    userInput.placeholder = 'Tulis kendala barang Anda...';
   }
 
   function getReturnsFromStorage() {
@@ -350,7 +350,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const avatar = document.createElement('div');
     avatar.className = `avatar ${sender === 'user' ? 'user-avatar' : 'bot-avatar'}`;
-    avatar.textContent = sender === 'user' ? '👤' : '🤖';
+    if (sender === 'user') {
+      avatar.textContent = '👤';
+    } else {
+      const botImg = document.createElement('img');
+      botImg.src = '/images/Logo-CepatRetur.png';
+      botImg.alt = 'CepatRetur';
+      botImg.className = 'avatar-img';
+      avatar.appendChild(botImg);
+    }
 
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';

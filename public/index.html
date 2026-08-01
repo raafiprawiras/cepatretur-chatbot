@@ -2,11 +2,18 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CepatRetur — Bot Asisten Penukaran & Pengembalian Barang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#080c13" />
+  <title>CepatRetur — Asisten Penukaran & Pengembalian Barang</title>
+  
+  <!-- Favicon High Resolution -->
+  <link rel="icon" type="image/png" href="/images/Favicon-CepatRetur.png" />
+  <link rel="shortcut icon" type="image/png" href="/images/Favicon-CepatRetur.png" />
+  <link rel="apple-touch-icon" href="/images/Favicon-CepatRetur.png" />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -14,7 +21,9 @@
     <!-- App Header -->
     <header class="app-header">
       <div class="brand">
-        <div class="brand-logo" aria-hidden="true">📦</div>
+        <div class="brand-logo-wrapper">
+          <img src="/images/Logo-CepatRetur.png" alt="Logo CepatRetur" class="app-logo" />
+        </div>
         <div class="brand-info">
           <h1 class="brand-name">CepatRetur</h1>
           <p class="brand-subtitle">Asisten Penukaran & Pengembalian Barang</p>
@@ -23,42 +32,42 @@
       <div class="header-right">
         <span class="status-pill online" id="api-health-pill" title="Status Layanan AI">
           <span class="status-dot" id="api-health-dot"></span>
-          <span class="status-text" id="api-health-text">Memeriksa API...</span>
+          <span class="status-text" id="api-health-text">API Terhubung</span>
         </span>
-        <span class="simulation-badge">Simulasi Final Project</span>
+        <span class="simulation-badge" aria-label="Simulasi Final Project">Simulasi Final Project</span>
       </div>
     </header>
 
-    <!-- Welcome Section -->
+    <!-- Welcome Section / Hero -->
     <section class="welcome-banner" id="welcome-banner">
       <div class="welcome-card">
         <div class="welcome-header">
-          <span class="welcome-icon" aria-hidden="true">👋</span>
-          <h2>Selamat Datang di CepatRetur!</h2>
+          <span class="welcome-icon" aria-hidden="true">📦</span>
+          <h2>Kelola proses retur barang dengan <span class="highlight-lime">lebih cepat</span>.</h2>
         </div>
-        <p>Saya siap membantu Anda memeriksa kelayakan retur barang, memberikan panduan pengemasan, serta melacak status pengembalian Anda.</p>
+        <p>Periksa kelayakan, dapatkan panduan pengemasan, dan lacak status pengembalian Anda melalui satu percakapan.</p>
         <div class="simulation-notice">
           <span class="notice-icon" aria-hidden="true">ℹ️</span>
-          <span><strong>Catatan:</strong> Seluruh fitur dan data pada aplikasi ini merupakan <em>Simulasi Final Project</em>.</span>
+          <span>Catatan: Seluruh data dan proses merupakan <em>Simulasi Final Project</em>.</span>
         </div>
       </div>
     </section>
 
     <!-- Quick Action Buttons -->
     <nav class="quick-actions" aria-label="Aksi Cepat">
-      <button type="button" class="action-btn" id="btn-ajukan-retur" data-action="ajukan">
+      <button type="button" class="action-btn primary-action" id="btn-ajukan-retur" data-action="ajukan">
         <span class="action-icon" aria-hidden="true">📋</span>
         <span class="action-label">Ajukan Retur</span>
       </button>
-      <button type="button" class="action-btn" id="btn-lacak-status" data-action="lacak">
+      <button type="button" class="action-btn secondary-action" id="btn-lacak-status" data-action="lacak">
         <span class="action-icon" aria-hidden="true">🔍</span>
         <span class="action-label">Lacak Status</span>
       </button>
-      <button type="button" class="action-btn" id="btn-tanya-kebijakan" data-action="kebijakan">
+      <button type="button" class="action-btn neutral-action" id="btn-tanya-kebijakan" data-action="kebijakan">
         <span class="action-icon" aria-hidden="true">❓</span>
         <span class="action-label">Tanya Kebijakan</span>
       </button>
-      <button type="button" class="action-btn" id="btn-menu-utama" data-action="menu">
+      <button type="button" class="action-btn neutral-action" id="btn-menu-utama" data-action="menu">
         <span class="action-icon" aria-hidden="true">🏠</span>
         <span class="action-label">Menu Utama</span>
       </button>
@@ -72,12 +81,14 @@
 
       <!-- Typing Indicator -->
       <div class="typing-indicator hidden" id="typing-indicator" aria-hidden="true">
-        <div class="avatar bot-avatar">🤖</div>
+        <div class="avatar bot-avatar">
+          <img src="/images/Logo-CepatRetur.png" alt="CepatRetur" class="avatar-img" />
+        </div>
         <div class="typing-bubble">
           <span class="typing-text">CepatRetur sedang memeriksa...</span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
+          <span class="dot dot-lime"></span>
+          <span class="dot dot-blue"></span>
+          <span class="dot dot-muted"></span>
         </div>
       </div>
     </main>
@@ -89,17 +100,17 @@
       <button type="button" class="close-error-btn" id="close-error-btn" aria-label="Tutup pesan error">✕</button>
     </div>
 
-    <!-- Chat Footer & Input Area -->
+    <!-- Chat Footer & Composer Input Area -->
     <footer class="chat-footer">
       <form id="chat-form" class="chat-form" action="#" method="POST">
         <div class="input-wrapper">
-          <label for="user-input" class="sr-only">Ketik pesan Anda</label>
+          <label for="user-input" class="sr-only">Ketik kendala barang Anda</label>
           <input 
             type="text" 
             id="user-input" 
             name="userInput"
             class="chat-input" 
-            placeholder="Ketik pertanyaan atau kendala barang Anda..." 
+            placeholder="Tulis kendala barang Anda..." 
             autocomplete="off" 
             required 
           />
@@ -109,7 +120,7 @@
             <span>Kirim</span>
             <span class="send-icon" aria-hidden="true">✈️</span>
           </button>
-          <button type="button" class="reset-btn" id="reset-btn" aria-label="Hapus Percakapan" title="Hapus Semua Data Demo & Chat">
+          <button type="button" class="reset-btn" id="reset-btn" aria-label="Hapus Percakapan" title="Hapus Percakapan Sesi Ini">
             <span aria-hidden="true">🗑️</span>
             <span class="sr-only">Hapus Percakapan</span>
           </button>
