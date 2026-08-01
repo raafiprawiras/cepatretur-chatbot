@@ -33,7 +33,10 @@
           <span class="status-dot" id="api-health-dot"></span>
           <span class="status-text" id="api-health-text">API Terhubung</span>
         </span>
-        <span class="simulation-badge" aria-label="Simulasi Final Project">Simulasi Final Project</span>
+        <span class="simulation-badge" aria-label="Simulasi Final Project">
+          <span class="app-icon icon-sm icon-secondary" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 3h6l1 7H8L9 3z"/><path d="M8 10c0 4 2 11 4 11s4-7 4-11"/><line x1="7" y1="3" x2="17" y2="3"/></svg></span>
+          Simulasi Final Project
+        </span>
       </div>
     </header>
 
@@ -41,12 +44,12 @@
     <section class="welcome-banner" id="welcome-banner">
       <div class="welcome-card">
         <div class="welcome-header">
-          <span class="welcome-icon" aria-hidden="true">📦</span>
+          <span class="app-icon icon-lg icon-primary" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/><path d="M7.5 4.21l9 5.2"/><path d="M12 12l-4 6" stroke="#96cf1e" stroke-width="2"/></svg></span>
           <h2>Kelola proses retur barang dengan <span class="highlight-lime">lebih cepat</span>.</h2>
         </div>
         <p>Periksa kelayakan, dapatkan panduan pengemasan, dan lacak status pengembalian Anda melalui satu percakapan.</p>
         <div class="simulation-notice">
-          <span class="notice-icon" aria-hidden="true">ℹ️</span>
+          <span class="app-icon icon-sm icon-secondary" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
           <span>Catatan: Seluruh data dan proses merupakan <em>Simulasi Final Project</em>.</span>
         </div>
       </div>
@@ -55,19 +58,19 @@
     <!-- Quick Action Buttons -->
     <nav class="quick-actions" aria-label="Aksi Cepat">
       <button type="button" class="action-btn primary-action" id="btn-ajukan-retur" data-action="ajukan">
-        <span class="action-icon" aria-hidden="true">📋</span>
+        <span class="app-icon icon-md" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/><path d="M12 12l-5 7" stroke="#96cf1e" stroke-width="2"/></svg></span>
         <span class="action-label">Ajukan Retur</span>
       </button>
       <button type="button" class="action-btn secondary-action" id="btn-lacak-status" data-action="lacak">
-        <span class="action-icon" aria-hidden="true">🔍</span>
+        <span class="app-icon icon-md" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/><circle cx="18" cy="18" r="3" stroke="#1b70de" stroke-width="2"/><line x1="20.2" y1="20.2" x2="22" y2="22" stroke="#1b70de" stroke-width="2"/></svg></span>
         <span class="action-label">Lacak Status</span>
       </button>
       <button type="button" class="action-btn neutral-action" id="btn-tanya-kebijakan" data-action="kebijakan">
-        <span class="action-icon" aria-hidden="true">❓</span>
+        <span class="app-icon icon-md" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="12" cy="15" r="2.5" stroke="#1b70de" stroke-width="1.6"/><line x1="12" y1="12.5" x2="12" y2="11"/></svg></span>
         <span class="action-label">Tanya Kebijakan</span>
       </button>
       <button type="button" class="action-btn neutral-action" id="btn-menu-utama" data-action="menu">
-        <span class="action-icon" aria-hidden="true">🏠</span>
+        <span class="app-icon icon-md" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
         <span class="action-label">Menu Utama</span>
       </button>
     </nav>
@@ -80,8 +83,8 @@
 
       <!-- Typing Indicator -->
       <div class="typing-indicator hidden" id="typing-indicator" aria-hidden="true">
-        <div class="message-avatar bot-avatar" aria-label="CepatRetur Bot">
-          <img src="/images/Logo-CepatRetur.png" alt="CepatRetur" aria-hidden="true" />
+        <div class="message-avatar bot-avatar" role="img" aria-label="CepatRetur AI">
+          <img src="/images/Favicon-CepatRetur.png" alt="" aria-hidden="true" />
         </div>
         <div class="message-content">
           <div class="message-meta">
@@ -99,9 +102,11 @@
 
     <!-- Error Banner -->
     <div class="error-banner hidden" id="error-banner" role="alert">
-      <span class="error-icon" aria-hidden="true">⚠️</span>
+      <span class="app-icon icon-danger" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
       <span class="error-message" id="error-message">Terjadi kesalahan. Silakan coba lagi.</span>
-      <button type="button" class="close-error-btn" id="close-error-btn" aria-label="Tutup pesan error">✕</button>
+      <button type="button" class="close-error-btn" id="close-error-btn" aria-label="Tutup pesan error" title="Tutup pesan error">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
 
     <!-- Chat Footer & Composer Input Area -->
@@ -120,12 +125,12 @@
           />
         </div>
         <div class="button-group">
-          <button type="submit" class="send-btn" id="send-btn" aria-label="Kirim Pesan">
+          <button type="submit" class="send-btn" id="send-btn" aria-label="Kirim Pesan" title="Kirim Pesan">
             <span>Kirim</span>
-            <span class="send-icon" aria-hidden="true">✈️</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
           <button type="button" class="reset-btn" id="reset-btn" aria-label="Hapus Percakapan" title="Hapus Percakapan Sesi Ini">
-            <span aria-hidden="true">🗑️</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
             <span class="sr-only">Hapus Percakapan</span>
           </button>
         </div>

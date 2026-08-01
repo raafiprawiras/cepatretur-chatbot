@@ -26,6 +26,18 @@
   --color-warning: #f5b942;
   --color-danger: #ff5c68;
 
+  /* Icon Design Tokens */
+  --icon-primary: #96cf1e;
+  --icon-secondary: #1b70de;
+  --icon-light: #f4f7fb;
+  --icon-muted: #7f8da3;
+  --icon-danger: #ff5c68;
+  --icon-warning: #f5b942;
+  --icon-bg-primary: rgba(150, 207, 30, 0.12);
+  --icon-bg-secondary: rgba(27, 112, 222, 0.14);
+  --icon-bg-danger: rgba(255, 92, 104, 0.12);
+  --icon-bg-neutral: rgba(255, 255, 255, 0.06);
+
   --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.35);
   --shadow-primary: 0 10px 30px rgba(150, 207, 30, 0.15);
   --shadow-secondary: 0 10px 30px rgba(27, 112, 222, 0.2);
@@ -85,6 +97,34 @@ body {
   outline: 2px solid var(--color-secondary-hover);
   outline-offset: 2px;
 }
+
+/* Icon Utility System */
+.app-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.app-icon.icon-sm { width: 16px; height: 16px; }
+.app-icon.icon-md { width: 22px; height: 22px; }
+.app-icon.icon-lg { width: 26px; height: 26px; }
+.app-icon.icon-xl { width: 44px; height: 44px; }
+
+.icon-primary { color: var(--icon-primary); }
+.icon-secondary { color: var(--icon-secondary); }
+.icon-light { color: var(--icon-light); }
+.icon-muted { color: var(--icon-muted); }
+.icon-danger { color: var(--icon-danger); }
+.icon-warning { color: var(--icon-warning); }
 
 /* App Container (Desktop Default) */
 .app-container {
@@ -412,7 +452,7 @@ body {
   width: 44px;
   height: 44px;
   min-width: 44px;
-  border-radius: var(--radius-md);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -421,27 +461,29 @@ body {
 }
 
 .bot-avatar {
-  background: linear-gradient(145deg, rgba(150, 207, 30, 0.16), rgba(27, 112, 222, 0.14)), var(--color-surface);
-  border: 1px solid rgba(150, 207, 30, 0.38);
-  box-shadow: 0 8px 20px rgba(150, 207, 30, 0.12);
+  padding: 5px;
+  background: linear-gradient(145deg, rgba(150, 207, 30, 0.14), rgba(27, 112, 222, 0.12)), #111925;
+  border: 1px solid rgba(150, 207, 30, 0.32);
+  box-shadow: 0 8px 22px rgba(150, 207, 30, 0.10);
 }
 
 .bot-avatar img {
-  width: 82%;
-  height: 82%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  display: block;
 }
 
 .user-avatar {
   border-radius: 50%;
   background: linear-gradient(145deg, #1b70de, #1457ad);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 20px rgba(27, 112, 222, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 20px rgba(27, 112, 222, 0.18);
 }
 
 .user-avatar svg {
-  width: 55%;
-  height: 55%;
+  width: 54%;
+  height: 54%;
   fill: none;
   stroke: #ffffff;
   stroke-width: 2;
@@ -488,7 +530,12 @@ body {
   font-weight: 700;
   color: var(--color-primary);
   letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
+
+.wizard-title .app-icon { width: 22px; height: 22px; }
 
 .wizard-options {
   display: flex;
@@ -538,16 +585,21 @@ body {
   color: var(--color-text-muted);
   font-size: 0.75rem;
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;
   align-self: flex-start;
   min-height: 36px;
   padding: 4px 0;
   transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .wizard-cancel-btn:hover {
   color: var(--color-text-secondary);
 }
+
+.wizard-cancel-btn .app-icon { width: 14px; height: 14px; }
 
 /* Result Cards & Summaries */
 .result-card, .summary-card, .tracking-card {
@@ -1094,6 +1146,17 @@ body {
   box-shadow: var(--shadow-primary);
 }
 
+.send-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
 .send-btn:hover:not(:disabled) {
   background-color: var(--color-primary-hover);
 }
@@ -1116,6 +1179,16 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+}
+
+.reset-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .reset-btn:hover:not(:disabled) {
@@ -1205,6 +1278,8 @@ body {
     width: 40px;
     height: 40px;
     min-width: 40px;
+    border-radius: 13px;
+    padding: 4px;
   }
 }
 
@@ -1276,6 +1351,8 @@ body {
     width: 36px;
     height: 36px;
     min-width: 36px;
+    border-radius: 12px;
+    padding: 4px;
   }
 
   .chat-footer {
