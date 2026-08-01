@@ -30,7 +30,7 @@ app.use((err, req, res, next) => {
   next(err);
 });
 
-// Serve static frontend files
+// Serve static frontend files from public/
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Health check endpoint
@@ -63,10 +63,15 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Express server
-app.listen(PORT, () => {
-  console.log(`=================================`);
-  console.log(`🚀 CepatRetur Server is running on:`);
-  console.log(`👉 http://localhost:${PORT}`);
-  console.log(`=================================`);
-});
+// Start listener only when running locally (outside Vercel serverless environment)
+if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`=================================`);
+    console.log(`🚀 CepatRetur Server is running locally on:`);
+    console.log(`👉 http://localhost:${PORT}`);
+    console.log(`=================================`);
+  });
+}
+
+// Export Express app for Vercel serverless runtime
+export default app;

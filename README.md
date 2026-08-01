@@ -5,9 +5,10 @@
 
 ---
 
-## 🌐 Demo Aplikasi Online (Render Deployment)
-- **Live Application URL:** `https://cepatretur.onrender.com` *(Silakan ganti dengan URL Render publik Anda setelah deployment)*
-- **API Health Check URL:** `https://cepatretur.onrender.com/api/health`
+## 🌐 Demo Aplikasi Online (Vercel Deployment)
+- **Production URL:** `https://NAMA-PROJECT.vercel.app` *(Silakan ganti dengan URL Vercel publik Anda)*
+- **GitHub Repository:** `https://github.com/USERNAME/NAMA-REPOSITORY`
+- **API Health Check URL:** `https://NAMA-PROJECT.vercel.app/api/health`
 
 ---
 
@@ -20,14 +21,15 @@
 - [6. Arsitektur Aplikasi](#6-arsitektur-aplikasi)
 - [7. Struktur Folder Proyek](#7-struktur-folder-proyek)
 - [8. Konfigurasi Google Gemini AI](#8-konfigurasi-google-gemini-ai)
-- [9. Panduan Instalasi & Penggunaan](#9-panduan-instalasi--penggunaan)
+- [9. Panduan Instalasi & Penggunaan Lokal](#9-panduan-instalasi--penggunaan-lokal)
 - [10. Cara Menjalankan Pengujian (Testing)](#10-cara-menjalankan-pengujian-testing)
 - [11. Dokumentasi Endpoint API](#11-dokumentasi-endpoint-api)
 - [12. Kebijakan Simulasi & Batasan Proyek](#12-kebijakan-simulasi--batasan-proyek)
 - [13. Keamanan API Key & Environment Variables](#13-keamanan-api-key--environment-variables)
-- [14. Panduan Deployment ke Render](#14-panduan-deployment-ke-render)
-- [15. Screenshot Aplikasi](#15-screenshot-aplikasi)
-- [16. Identitas Pembuat](#16-identitas-pembuat)
+- [14. Panduan Deployment ke Vercel](#14-panduan-deployment-ke-vercel)
+- [15. Troubleshooting Vercel](#15-troubleshooting-vercel)
+- [16. Screenshot Aplikasi](#16-screenshot-aplikasi)
+- [17. Identitas Pembuat](#17-identitas-pembuat)
 
 ---
 
@@ -72,7 +74,7 @@ Dalam industri E-Commerce, proses pengembalian dan penukaran barang sering kali 
 ## 5. Teknologi yang Digunakan
 
 - **Frontend:** HTML5 Semantik, Pure Vanilla CSS3 (Custom Design System, Glassmorphism, Micro-animations), Pure Vanilla JavaScript (DOM Native, ES Modules). *Tanpa CSS/JS Framework*.
-- **Backend:** Node.js (v18+), Express.js (v5.x).
+- **Backend:** Node.js (v22.x), Express.js (v5.x).
 - **AI Integration:** `@google/genai` (SDK Resmi Google GenAI), Model: `gemini-2.5-flash`.
 - **Environment & Middleware:** `dotenv`, `cors`.
 - **Testing:** Native Node.js Test Runner (`node:test`, `node:assert`).
@@ -83,7 +85,7 @@ Dalam industri E-Commerce, proses pengembalian dan penukaran barang sering kali 
 
 ```mermaid
 graph TD
-    A[Client Browser - Vanilla JS Frontend] -->|GET /api/health| B[Express Server Backend]
+    A[Client Browser - Vanilla JS Frontend] -->|GET /api/health| B[Express Server Backend / Vercel Serverless Function]
     A -->|POST /api/chat| C[routes/chatRoute.js]
     A -->|POST /api/returns/check| D[routes/returnRoute.js]
     A -->|POST /api/returns/create| D
@@ -138,7 +140,7 @@ cepatretur/
 ├── .env
 ├── .env.example
 ├── .gitignore
-├── render.yaml
+├── vercel.json
 ├── index.js
 ├── package.json
 ├── package-lock.json
@@ -160,7 +162,11 @@ cepatretur/
 
 ---
 
-## 9. Panduan Instalasi & Penggunaan
+## 9. Panduan Instalasi & Penggunaan Lokal
+
+### Prasyarat
+- Node.js versi 22.x untuk pengembangan lokal.
+- Akun Google AI Studio (untuk memperoleh Gemini API Key).
 
 ### 1️⃣ Clone Repositori & Instalasi Dependensi
 ```bash
@@ -176,16 +182,21 @@ cp .env.example .env
 ```
 Buka file `.env` dan masukkan API Key Google Gemini Anda:
 ```env
-GEMINI_API_KEY=masukkan_gemini_api_key_anda_di_sini
+GEMINI_API_KEY=your_actual_gemini_api_key
 PORT=3000
 ```
+
+> ⚠️ **Catatan Penting Keamanan:**
+> - File `.env` secara ketat didaftarkan di `.gitignore` dan **TIDAK BOLEH** di-push ke GitHub.
+> - Variable `PORT=3000` hanya digunakan untuk pengembangan lokal.
+> - `GEMINI_API_KEY` tidak boleh diletakkan di frontend.
 
 ### 3️⃣ Menjalankan Server Aplikasi
 - **Development Mode:**
   ```bash
   npm run dev
   ```
-- **Production Mode:**
+- **Production / Start Mode:**
   ```bash
   npm start
   ```
@@ -239,10 +250,12 @@ npm test
 
 > [!IMPORTANT]
 > Seluruh fitur dan kebijakan pada aplikasi **CepatRetur** ditandai sebagai **"Kebijakan Simulasi Final Project"**:
+> - **CepatRetur Merupakan Simulasi Final Project:** Data retur disimpan secara lokal di `localStorage` browser pengguna.
 > - **Tidak Terhubung ke Toko Nyata:** Aplikasi tidak terhubung ke basis data toko online asli.
-> - **Tidak Terhubung ke Kurir Nyata:** Alamat pengiriman dan pelacakan status merupakan bentuk simulasi demonstrasi.
-> - **Penyimpanan Lokal:** Data retur dan riwayat percakapan tersimpan secara independen pada `localStorage` browser pengguna.
-> - **Tanpa Janji Refund Sebelum Inspeksi:** Pengembalian dana (refund) belum diproses/dijanjikan sebelum paket fisik tiba di gudang dan lolos inspeksi kualitas.
+> - **Tidak Terhubung ke Kurir Nyata:** Alamat pengiriman dan status retur merupakan bentuk simulasi demonstrasi.
+> - **Data Tidak Berpindah Otomatis:** Data pada `localStorage` tidak berpindah ke browser atau perangkat lain. Menghapus browser storage dapat menghapus data simulasi.
+> - **Vercel Digunakan untuk Frontend & Endpoint Express:** API Gemini dipanggil via backend Express agar API key tidak terekspos ke browser.
+> - **Tanpa Janji Refund Sebelum Inspeksi:** Pengembalian dana (refund) belum diproses/dijanjikan sebelum paket fisik diterima di gudang dan selesai diinspeksi.
 
 ---
 
@@ -254,38 +267,106 @@ npm test
 
 ---
 
-## 14. Panduan Deployment ke Render
+## 14. Panduan Deployment ke Vercel
 
-Aplikasi CepatRetur siap di-deploy sebagai **Single Web Service** di [Render.com](https://render.com):
+Aplikasi CepatRetur siap di-deploy sebagai aplikasi **Node.js + Express** di [Vercel](https://vercel.com).
 
-1. **Push Kode ke GitHub:**
-   ```bash
-   git add .
-   git commit -m "feat: add render blueprint deployment config"
-   git push origin main
-   ```
-2. **Login ke Render & Buat Web Service:**
-   - Login ke Dashboard [Render.com](https://render.com).
-   - Pilih tombol **New +** -> **Web Service** (atau gunakan Blueprint).
-   - Hubungkan repositori GitHub CepatRetur.
-3. **Atur Konfigurasi Build & Runtime:**
-   - **Name:** `cepatretur`
-   - **Runtime:** `Node`
-   - **Build Command:** `npm install`
-   - **Start Command:** `npm start`
-4. **Tambahkan Environment Variable:**
-   - Masuk ke menu **Environment** pada dashboard Render.
-   - Tambahkan key: `GEMINI_API_KEY` = *[API Key Gemini Anda]*
-   - Tambahkan key: `NODE_ENV` = `production`
-5. **Deploy & Pengujian:**
-   - Klik **Deploy Web Service** dan tunggu proses build selesai.
-   - Buka URL publik yang dihasilkan (misal: `https://cepatretur.onrender.com`).
-   - Uji kesehatan API via `GET /api/health`.
-   - Uji alur chat, ajukan retur, dan pelacakan status pada browser PC & mobile.
+### Prasyarat Deployment:
+- Akun GitHub & Akun Vercel.
+- Repositori proyek CepatRetur di GitHub.
+- Gemini API Key resmi dari Google AI Studio.
+- Node.js versi 22.x.
 
 ---
 
-## 15. Screenshot Aplikasi
+### 🅰️ Cara 1: Deployment Melalui Vercel Dashboard (Rekomendasi)
+
+1. **Push Proyek ke GitHub:**
+   ```bash
+   git add .
+   git commit -m "chore: prepare CepatRetur for Vercel deployment"
+   git push origin main
+   ```
+2. **Login ke Vercel & Import Project:**
+   - Login ke Dashboard [Vercel](https://vercel.com).
+   - Pilih tombol **Add New** -> **Project**.
+   - Impor repositori GitHub **CepatRetur**.
+3. **Konfigurasi Project Settings:**
+   - **Framework Preset:** Pilih **Other**.
+   - **Root Directory:** `./` *(folder utama yang berisi package.json)*.
+   - **Build Command:** Biarkan default / kosong (Express di-handle otomatis via auto-detection).
+   - **Install Command:** `npm install`
+4. **Pengaturan Environment Variables:**
+   - Masuk ke tab **Environment Variables**.
+   - Tambahkan Name: `GEMINI_API_KEY` | Value: `[API Key Gemini Anda]`.
+   - Pilih environment **Production** dan **Preview**.
+   - Klik **Save**.
+5. **Deploy & Verifikasi:**
+   - Klik tombol **Deploy** dan tunggu proses deployment selesai hingga status `Ready`.
+   - Buka domain yang dihasilkan (misal: `https://NAMA-PROJECT.vercel.app`).
+
+> ⚠️ **Penting:** Setelah menambahkan atau mengubah environment variable di Vercel, lakukan **Redeploy** agar nilai variabel terbaru diterapkan.
+
+---
+
+### 🅱️ Cara 2: Deployment Melalui Vercel CLI
+
+1. **Instalasi Vercel CLI & Login:**
+   ```bash
+   npm install -g vercel
+   vercel login
+   ```
+2. **Jalankan Deployment:**
+   ```bash
+   # Untuk Preview Deployment
+   vercel
+
+   # Untuk Production Deployment
+   vercel --prod
+   ```
+3. **Pengaturan Environment Variables via CLI / Dashboard:**
+   Atur `GEMINI_API_KEY` melalui Dashboard Vercel (Project Settings -> Environment Variables) lalu jalankan `vercel --prod` kembali.
+
+---
+
+### 🔄 Pembaruan Otomatis (CI/CD Vercel)
+Setelah repositori GitHub terhubung ke Vercel:
+- Setiap perubahan yang di-push ke branch `main` akan secara otomatis memicu build & deployment baru.
+- Perubahan production dianggap berhasil jika deployment berstatus `Ready` dan URL publik teruji dengan lancar.
+
+---
+
+## 15. Troubleshooting Vercel
+
+| Masalah | Pemeriksaan & Solusi |
+| :--- | :--- |
+| **Halaman Utama 404** | Periksa lokasi `public/index.html`, pastikan `express.static('public')` terpasang dan `vercel.json` mengarah dengan benar. |
+| **Endpoint API 404** | Periksa mounting route Express `/api` dan pastikan `index.js` melakukan `export default app;`. |
+| **FUNCTION_INVOCATION_FAILED** | Buka Runtime Logs Vercel. Periksa apakah `GEMINI_API_KEY` sudah terpasang di Environment Variables Vercel dan lakukan redeploy. |
+| **Gemini Chat Gagal / Error** | Periksa `GEMINI_API_KEY` di Project Settings Vercel. Pastikan environment Production & Preview dicentang, lalu Redeploy. |
+| **CSS / Script 404** | Periksa path aset di `public/index.html` (harus relative/root-relative e.g. `style.css` / `script.js`). |
+| **Fetch Masih Menuju Localhost** | Pastikan seluruh pemanggilan `fetch()` di `public/script.js` menggunakan relative URL (`/api/...`). |
+| **Deployment Menggunakan Kode Lama** | Periksa commit ID di Vercel Dashboard, lalu picu **Redeploy** manual pada tab Deployments. |
+
+---
+
+## 16. Checklist Pengujian Production Vercel
+
+- [x] Halaman utama terbuka tanpa 404.
+- [x] CSS (`style.css`) dan JavaScript (`script.js`) dimuat sempurna.
+- [x] Endpoint `GET /api/health` memberikan respon status `ok`.
+- [x] Chatbot Gemini AI memberikan respon cerdas & ramah.
+- [x] Form 3 Pertanyaan Kelayakan Retur bekerja presisi.
+- [x] Pembuatan Kode Retur `RTR-YYYYMMDD-XXXX` berhasil diterbitkan.
+- [x] Pelacakan status 8 tahap & mode simulasi berjalan lancar.
+- [x] Data `localStorage` tersimpan & bertahan setelah browser di-refresh.
+- [x] 0 Request menuju `localhost`.
+- [x] API Key 100% aman dan tidak terlihat di browser.
+- [x] Tampilan responsif di layar mobile (360px) tanpa horizontal overflow.
+
+---
+
+## 17. Screenshot Aplikasi
 
 Daftar tangkapan layar pengujian antarmuka aplikasi dapat dilihat pada direktori [`docs/screenshots/`](file:///c:/project/gemini-chatbot-api/docs/screenshots/):
 1. `01-home.png` — Tampilan Beranda CepatRetur
@@ -297,9 +378,9 @@ Daftar tangkapan layar pengujian antarmuka aplikasi dapat dilihat pada direktori
 
 ---
 
-## 16. Identitas Pembuat
+## 18. Identitas Pembuat
 
 - **Nama Pembuat:** [Isi Nama Anda Di Sini]
 - **NIM / ID Peserta:** [Isi NIM / ID Anda Di Sini]
 - **Kelas / Program:** Final Project Gemini Chatbot API
-- **Repositori GitHub:** [https://github.com/USERNAME/cepatretur](https://github.com/USERNAME/cepatretur)
+- **Repositori GitHub:** [https://github.com/USERNAME/NAMA-REPOSITORY](https://github.com/USERNAME/NAMA-REPOSITORY)
