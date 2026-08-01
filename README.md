@@ -170,7 +170,7 @@ cepatretur/
 
 ### 1️⃣ Clone Repositori & Instalasi Dependensi
 ```bash
-git clone https://github.com/USERNAME/cepatretur.git
+git clone [https://github.com/USERNAME/cepatretur.git](https://github.com/raafiprawiras/cepatretur-chatbot)
 cd cepatretur
 npm install
 ```
@@ -380,7 +380,14 @@ Daftar tangkapan layar pengujian antarmuka aplikasi dapat dilihat pada direktori
 
 ## 18. Identitas Pembuat
 
+<<<<<<< HEAD
 - **Nama Pembuat:** [Isi Nama Anda Di Sini]
 - **NIM / ID Peserta:** [Isi NIM / ID Anda Di Sini]
 - **Kelas / Program:** Final Project Gemini Chatbot API
 - **Repositori GitHub:** [https://github.com/USERNAME/NAMA-REPOSITORY](https://github.com/USERNAME/NAMA-REPOSITORY)
+=======
+- **Nama Pembuat:** Raafi Prawira Setiamudo
+- **NIM / ID Peserta:** -
+- **Kelas / Program:** Maju Bareng AI 2026
+- **Repositori GitHub:** (https://github.com/raafiprawiras/cepatretur-chatbot)
+>>>>>>> 57ffd5cf10bbd47cbd450985ccd5c918ed2d3dd7
