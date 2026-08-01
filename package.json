@@ -1,0 +1,29 @@
+{
+  "name": "cepatretur",
+  "version": "1.0.0",
+  "description": "CepatRetur — Bot Asisten Penukaran & Pengembalian Barang",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "gemini",
+    "chatbot",
+    "express",
+    "cepatretur"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^2.15.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}
