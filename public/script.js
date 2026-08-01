@@ -1,4 +1,4 @@
-// CepatRetur — Client Script (Milestone 8 — Hardening, UX, and Security Audit)
+// CepatRetur — Client Script with Session Storage Chat Management
 document.addEventListener('DOMContentLoaded', () => {
   const chatForm = document.getElementById('chat-form');
   const userInput = document.getElementById('user-input');
@@ -20,9 +20,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnKebijakan = document.getElementById('btn-tanya-kebijakan');
   const btnMenuUtama = document.getElementById('btn-menu-utama');
 
-  const STORAGE_KEY = 'cepatretur_chat_history';
+  // Storage Keys
+  const SESSION_CHAT_KEY = 'cepatretur_chat_session';
+  const SESSION_ID_KEY = 'cepatretur_chat_session_id';
   const WIZARD_KEY = 'cepatretur_wizard_state';
-  const RETURNS_KEY = 'cepatretur_returns_data';
+  const RETURNS_KEY = 'cepatretur_returns_data'; // Preserved in localStorage
+
+  const LEGACY_CHAT_KEYS = [
+    'chatHistory',
+    'conversation',
+    'cepatretur_chat',
+    'cepatretur_conversation',
+    'cepatretur_chat_history'
+  ];
 
   const TRACKING_STAGES = [
     'Pengajuan dibuat',
@@ -57,9 +67,36 @@ document.addEventListener('DOMContentLoaded', () => {
   checkApiHealth();
   setInterval(checkApiHealth, 30000);
 
-  // 2. Load persistent data safely
+  // 2. Clean legacy localStorage chat keys & Initialize Session
+  cleanLegacyChatKeys();
+  getOrCreateSessionId();
   loadChatHistory();
   loadWizardState();
+
+  function getOrCreateSessionId() {
+    try {
+      let sid = sessionStorage.getItem(SESSION_ID_KEY);
+      if (!sid) {
+        sid = (typeof crypto !== 'undefined' && crypto.randomUUID)
+          ? crypto.randomUUID()
+          : 'session_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+        sessionStorage.setItem(SESSION_ID_KEY, sid);
+      }
+      return sid;
+    } catch (e) {
+      return 'session_fallback';
+    }
+  }
+
+  function cleanLegacyChatKeys() {
+    try {
+      LEGACY_CHAT_KEYS.forEach(key => {
+        localStorage.removeItem(key);
+      });
+    } catch (e) {
+      console.warn('Gagal membersihkan legacy chat keys:', e);
+    }
+  }
 
   async function checkApiHealth() {
     try {
@@ -89,13 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function loadChatHistory() {
     try {
-      const savedData = localStorage.getItem(STORAGE_KEY);
-      if (savedData) {
-        const parsed = JSON.parse(savedData);
-        if (Array.isArray(parsed) && parsed.length > 0) {
+      const savedSession = sessionStorage.getItem(SESSION_CHAT_KEY);
+      if (savedSession) {
+        const parsed = JSON.parse(savedSession);
+        if (parsed && Array.isArray(parsed.conversation) && parsed.conversation.length > 0) {
           chatMessages.innerHTML = '';
-          conversationHistory = parsed;
-          parsed.forEach((msg) => {
+          conversationHistory = parsed.conversation;
+          parsed.conversation.forEach((msg) => {
             const sender = msg.role === 'user' ? 'user' : 'bot';
             appendMessageUI(sender, msg.text, false);
           });
@@ -104,22 +141,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     } catch (e) {
-      console.warn('Gagal membaca riwayat dari localStorage:', e);
+      console.warn('Gagal membaca chat dari sessionStorage, memulai sesi baru:', e);
+      try {
+        sessionStorage.removeItem(SESSION_CHAT_KEY);
+      } catch (err) {}
     }
     initChat();
   }
 
   function saveHistory() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(conversationHistory));
+      const sessionData = {
+        conversation: conversationHistory,
+        messages: conversationHistory,
+        startedAt: new Date().toISOString()
+      };
+      sessionStorage.setItem(SESSION_CHAT_KEY, JSON.stringify(sessionData));
     } catch (e) {
-      console.warn('Gagal menyimpan riwayat ke localStorage:', e);
+      console.warn('Gagal menyimpan chat ke sessionStorage:', e);
     }
   }
 
   function loadWizardState() {
     try {
-      const savedWizard = localStorage.getItem(WIZARD_KEY);
+      const savedWizard = sessionStorage.getItem(WIZARD_KEY);
       if (savedWizard) {
         const parsed = JSON.parse(savedWizard);
         if (parsed && parsed.step && parsed.step !== 'IDLE') {
@@ -133,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function saveWizardState() {
     try {
-      localStorage.setItem(WIZARD_KEY, JSON.stringify(wizardState));
+      sessionStorage.setItem(WIZARD_KEY, JSON.stringify(wizardState));
     } catch (e) {
       console.warn('Gagal menyimpan state wizard:', e);
     }
@@ -147,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
       createdReturn: null
     };
     try {
-      localStorage.removeItem(WIZARD_KEY);
+      sessionStorage.removeItem(WIZARD_KEY);
     } catch (e) {}
     userInput.placeholder = 'Ketik pertanyaan atau kendala barang Anda...';
   }
@@ -160,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (Array.isArray(parsed)) return parsed;
       }
     } catch (e) {
-      console.warn('Gagal membaca list retur:', e);
+      console.warn('Gagal membaca list retur dari localStorage:', e);
     }
     return [];
   }
@@ -201,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(RETURNS_KEY, JSON.stringify(returnsList));
       }
     } catch (e) {
-      console.warn('Gagal memperbarui data retur:', e);
+      console.warn('Gagal memperbarui data retur di localStorage:', e);
     }
   }
 
@@ -223,20 +268,22 @@ document.addEventListener('DOMContentLoaded', () => {
     chatMessages.innerHTML = '';
     conversationHistory = [];
     try {
-      localStorage.removeItem(STORAGE_KEY);
-      localStorage.removeItem(WIZARD_KEY);
+      sessionStorage.removeItem(SESSION_CHAT_KEY);
+      sessionStorage.removeItem(WIZARD_KEY);
     } catch (e) {}
     resetWizardState();
     hideError();
 
-    const welcomeMsg = 'Halo! Saya CepatRetur, asisten customer service khusus penukaran dan pengembalian barang.\n\nAda yang bisa saya bantu terkait retur atau penukaran produk Anda hari ini?';
+    const welcomeMsg = 'Halo! Saya CepatRetur, asisten penukaran dan pengembalian barang. Apa yang dapat saya bantu hari ini?';
     appendMessageUI('bot', welcomeMsg, false);
   }
 
-  function resetAllDemoData() {
+  function resetChatSessionOnly() {
     try {
-      localStorage.clear();
-      showToast('Seluruh data demo dan riwayat percakapan berhasil direset.');
+      sessionStorage.removeItem(SESSION_CHAT_KEY);
+      sessionStorage.removeItem(SESSION_ID_KEY);
+      sessionStorage.removeItem(WIZARD_KEY);
+      showToast('Sesi percakapan telah dibersihkan.');
     } catch (e) {}
     initChat();
   }
@@ -1163,10 +1210,10 @@ document.addEventListener('DOMContentLoaded', () => {
     handleSendMessage();
   });
 
-  // Reset chat / demo data listener
+  // Reset chat listener
   resetBtn.addEventListener('click', () => {
-    if (confirm('Apakah Anda yakin ingin menghapus seluruh riwayat chat dan mereset data demo?')) {
-      resetAllDemoData();
+    if (confirm('Apakah Anda yakin ingin menghapus percakapan saat ini?')) {
+      resetChatSessionOnly();
     }
   });
 
