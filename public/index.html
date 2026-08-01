@@ -18,18 +18,17 @@
 </head>
 <body>
   <div class="app-container">
+    <!-- Accessible Hidden H1 -->
+    <h1 class="sr-only">CepatRetur — Asisten Penukaran dan Pengembalian Barang</h1>
+
     <!-- App Header -->
     <header class="app-header">
-      <div class="brand">
-        <div class="brand-logo-wrapper">
-          <img src="/images/Logo-CepatRetur.png" alt="Logo CepatRetur" class="app-logo" />
-        </div>
-        <div class="brand-info">
-          <h1 class="brand-name">CepatRetur</h1>
-          <p class="brand-subtitle">Asisten Penukaran & Pengembalian Barang</p>
-        </div>
+      <div class="header-brand">
+        <a href="/" class="brand-logo-link" aria-label="CepatRetur — Asisten Penukaran dan Pengembalian Barang">
+          <img src="/images/Logo-CepatRetur.png" alt="CepatRetur" class="brand-logo" />
+        </a>
       </div>
-      <div class="header-right">
+      <div class="header-status-group">
         <span class="status-pill online" id="api-health-pill" title="Status Layanan AI">
           <span class="status-dot" id="api-health-dot"></span>
           <span class="status-text" id="api-health-text">API Terhubung</span>
@@ -81,14 +80,19 @@
 
       <!-- Typing Indicator -->
       <div class="typing-indicator hidden" id="typing-indicator" aria-hidden="true">
-        <div class="avatar bot-avatar">
-          <img src="/images/Logo-CepatRetur.png" alt="CepatRetur" class="avatar-img" />
+        <div class="message-avatar bot-avatar" aria-label="CepatRetur Bot">
+          <img src="/images/Logo-CepatRetur.png" alt="CepatRetur" aria-hidden="true" />
         </div>
-        <div class="typing-bubble">
-          <span class="typing-text">CepatRetur sedang memeriksa...</span>
-          <span class="dot dot-lime"></span>
-          <span class="dot dot-blue"></span>
-          <span class="dot dot-muted"></span>
+        <div class="message-content">
+          <div class="message-meta">
+            <span class="message-author">CepatRetur AI</span>
+          </div>
+          <div class="typing-bubble">
+            <span class="typing-text">CepatRetur sedang memeriksa...</span>
+            <span class="dot dot-lime"></span>
+            <span class="dot dot-blue"></span>
+            <span class="dot dot-muted"></span>
+          </div>
         </div>
       </div>
     </main>

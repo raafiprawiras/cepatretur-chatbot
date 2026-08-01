@@ -1,4 +1,4 @@
-// CepatRetur — Client Script with Session Storage Chat Management
+// CepatRetur — Client Script with Session Storage & Custom Profile Avatars
 document.addEventListener('DOMContentLoaded', () => {
   const chatForm = document.getElementById('chat-form');
   const userInput = document.getElementById('user-input');
@@ -343,36 +343,58 @@ document.addEventListener('DOMContentLoaded', () => {
     errorBanner.classList.add('hidden');
   }
 
+  // Safe Avatar Creation Helper
+  function createAvatar(sender) {
+    const avatar = document.createElement('div');
+    avatar.className = `message-avatar ${sender === 'user' ? 'user-avatar' : 'bot-avatar'}`;
+    avatar.setAttribute('aria-label', sender === 'user' ? 'Pengguna' : 'CepatRetur Bot');
+
+    if (sender === 'user') {
+      avatar.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`;
+    } else {
+      const botImg = document.createElement('img');
+      botImg.src = '/images/Logo-CepatRetur.png';
+      botImg.alt = 'CepatRetur';
+      botImg.setAttribute('aria-hidden', 'true');
+      avatar.appendChild(botImg);
+    }
+    return avatar;
+  }
+
+  // Safe Message Meta Helper (Author & Time)
+  function createMessageMeta(sender, timestampStr) {
+    const meta = document.createElement('div');
+    meta.className = `message-meta ${sender === 'user' ? 'user-meta' : ''}`;
+
+    const author = document.createElement('span');
+    author.className = `message-author ${sender === 'user' ? 'user-author' : ''}`;
+    author.textContent = sender === 'user' ? 'Anda' : 'CepatRetur AI';
+
+    const time = document.createElement('time');
+    time.className = 'message-time';
+    time.textContent = timestampStr || formatCurrentTime();
+
+    meta.appendChild(author);
+    meta.appendChild(time);
+    return meta;
+  }
+
   // Safe DOM message creation
   function appendMessageUI(sender, text, shouldScroll = true) {
     const row = document.createElement('div');
     row.className = `message-row ${sender}`;
 
-    const avatar = document.createElement('div');
-    avatar.className = `avatar ${sender === 'user' ? 'user-avatar' : 'bot-avatar'}`;
-    if (sender === 'user') {
-      avatar.textContent = '👤';
-    } else {
-      const botImg = document.createElement('img');
-      botImg.src = '/images/Logo-CepatRetur.png';
-      botImg.alt = 'CepatRetur';
-      botImg.className = 'avatar-img';
-      avatar.appendChild(botImg);
-    }
-
+    const avatar = createAvatar(sender);
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
 
+    const meta = createMessageMeta(sender);
     const bubble = document.createElement('div');
     bubble.className = 'bubble';
     bubble.textContent = text;
 
-    const timestamp = document.createElement('span');
-    timestamp.className = 'timestamp';
-    timestamp.textContent = formatCurrentTime();
-
+    contentDiv.appendChild(meta);
     contentDiv.appendChild(bubble);
-    contentDiv.appendChild(timestamp);
 
     row.appendChild(avatar);
     row.appendChild(contentDiv);
@@ -389,13 +411,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const row = document.createElement('div');
     row.className = 'message-row bot';
 
-    const avatar = document.createElement('div');
-    avatar.className = 'avatar bot-avatar';
-    avatar.textContent = '🤖';
-
+    const avatar = createAvatar('bot');
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
 
+    const meta = createMessageMeta('bot');
     const bubble = document.createElement('div');
     bubble.className = 'bubble';
 
@@ -446,13 +466,8 @@ document.addEventListener('DOMContentLoaded', () => {
     wizardCard.appendChild(cancelBtn);
 
     bubble.appendChild(wizardCard);
-
-    const timestamp = document.createElement('span');
-    timestamp.className = 'timestamp';
-    timestamp.textContent = formatCurrentTime();
-
+    contentDiv.appendChild(meta);
     contentDiv.appendChild(bubble);
-    contentDiv.appendChild(timestamp);
 
     row.appendChild(avatar);
     row.appendChild(contentDiv);
@@ -466,13 +481,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const row = document.createElement('div');
     row.className = 'message-row bot';
 
-    const avatar = document.createElement('div');
-    avatar.className = 'avatar bot-avatar';
-    avatar.textContent = '🤖';
-
+    const avatar = createAvatar('bot');
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
 
+    const meta = createMessageMeta('bot');
     const bubble = document.createElement('div');
     bubble.className = 'bubble';
 
@@ -553,13 +566,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     card.appendChild(actionsDiv);
     bubble.appendChild(card);
-
-    const timestamp = document.createElement('span');
-    timestamp.className = 'timestamp';
-    timestamp.textContent = formatCurrentTime();
-
+    contentDiv.appendChild(meta);
     contentDiv.appendChild(bubble);
-    contentDiv.appendChild(timestamp);
 
     row.appendChild(avatar);
     row.appendChild(contentDiv);
@@ -655,13 +663,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const row = document.createElement('div');
     row.className = 'message-row bot';
 
-    const avatar = document.createElement('div');
-    avatar.className = 'avatar bot-avatar';
-    avatar.textContent = '🤖';
-
+    const avatar = createAvatar('bot');
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
 
+    const meta = createMessageMeta('bot');
     const bubble = document.createElement('div');
     bubble.className = 'bubble';
 
@@ -764,13 +770,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     card.appendChild(actionsDiv);
     bubble.appendChild(card);
-
-    const timestamp = document.createElement('span');
-    timestamp.className = 'timestamp';
-    timestamp.textContent = formatCurrentTime();
-
+    contentDiv.appendChild(meta);
     contentDiv.appendChild(bubble);
-    contentDiv.appendChild(timestamp);
 
     row.appendChild(avatar);
     row.appendChild(contentDiv);
@@ -825,13 +826,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const row = document.createElement('div');
       row.className = 'message-row bot';
 
-      const avatar = document.createElement('div');
-      avatar.className = 'avatar bot-avatar';
-      avatar.textContent = '🤖';
-
+      const avatar = createAvatar('bot');
       const contentDiv = document.createElement('div');
       contentDiv.className = 'message-content';
 
+      const meta = createMessageMeta('bot');
       const bubble = document.createElement('div');
       bubble.className = 'bubble';
 
@@ -859,13 +858,8 @@ document.addEventListener('DOMContentLoaded', () => {
       actionsDiv.appendChild(btnAjukanBaru);
       actionsDiv.appendChild(btnCariLain);
       bubble.appendChild(actionsDiv);
-
-      const timestamp = document.createElement('span');
-      timestamp.className = 'timestamp';
-      timestamp.textContent = formatCurrentTime();
-
+      contentDiv.appendChild(meta);
       contentDiv.appendChild(bubble);
-      contentDiv.appendChild(timestamp);
 
       row.appendChild(avatar);
       row.appendChild(contentDiv);
@@ -882,13 +876,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const row = document.createElement('div');
     row.className = 'message-row bot';
 
-    const avatar = document.createElement('div');
-    avatar.className = 'avatar bot-avatar';
-    avatar.textContent = '🤖';
-
+    const avatar = createAvatar('bot');
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
 
+    const meta = createMessageMeta('bot');
     const bubble = document.createElement('div');
     bubble.className = 'bubble';
 
@@ -1005,13 +997,8 @@ document.addEventListener('DOMContentLoaded', () => {
     card.appendChild(demoBox);
 
     bubble.appendChild(card);
-
-    const timestamp = document.createElement('span');
-    timestamp.className = 'timestamp';
-    timestamp.textContent = formatCurrentTime();
-
+    contentDiv.appendChild(meta);
     contentDiv.appendChild(bubble);
-    contentDiv.appendChild(timestamp);
 
     row.appendChild(avatar);
     row.appendChild(contentDiv);
@@ -1037,7 +1024,7 @@ document.addEventListener('DOMContentLoaded', () => {
     wizardState.data.orderNumber = orderText;
     wizardState.step = 'ASK_SEAL';
     saveWizardState();
-    userInput.placeholder = 'Ketik pertanyaan atau kendala barang Anda...';
+    userInput.placeholder = 'Tulis kendala barang Anda...';
 
     appendWizardCardUI(
       '🏷️ Pertanyaan 1 dari 3',
