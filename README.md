@@ -299,7 +299,7 @@ Daftar tangkapan layar pengujian antarmuka aplikasi dapat dilihat pada direktori
 
 ## 16. Identitas Pembuat
 
-- **Nama Pembuat:** [Isi Nama Anda Di Sini]
-- **NIM / ID Peserta:** [Isi NIM / ID Anda Di Sini]
-- **Kelas / Program:** Final Project Gemini Chatbot API
-- **Repositori GitHub:** [https://github.com/USERNAME/cepatretur](https://github.com/USERNAME/cepatretur)
+- **Nama Pembuat:** Raafi Prawira Setiamudo
+- **NIM / ID Peserta:** -
+- **Kelas / Program:** Maju Bareng AI 2026
+- **Repositori GitHub:** (https://github.com/raafiprawiras/cepatretur)
